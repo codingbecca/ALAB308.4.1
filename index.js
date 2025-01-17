@@ -28,7 +28,7 @@
 //     }
 // }
 
-// and here is the refactored version
+// and here is the refactored version. I noticed that my code was missing the last row of data since the last row doesn't end with '\n\'
 let str = 'Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232'
 
 let cell = '';
@@ -156,15 +156,30 @@ console.log(arrOfDataObjs)
 // Remove the last element from the sorted array.
 // Insert the following object at index 1:
 // { id: "48", name: "Barry", occupation: "Runner", age: "25" }
+arrOfDataObjs.splice (1, 0, { id: "48", name: "Barry", occupation: "Runner", age: "25" });
+
 // Add the following object to the end of the array:
 // { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+arrOfDataObjs.push({ id: "7", name: "Bilbo", occupation: "None", age: "111" });
+
 // So far, the results should look like this:
 // [{ id: "42", name: "Bruce", occupation: "Knight", age: "41" },
 //  { id: "48", name: "Barry", occupation: "Runner", age: "25" },
 //  { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
 //  { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
 //  { id: "7", name: "Bilbo", occupation: "None", age: "111" }]
+console.log(arrOfDataObjs);
+
 // Finally, use the values of each object within the array and the array’s length property to calculate the average age of the group. This calculation should be accomplished using a loop.
+let avgAge = 0;
+
+for (person of arrOfDataObjs) {
+    avgAge += parseInt(person.age);
+}
+
+avgAge /= arrOfDataObjs.length
+
+console.log(avgAge);
 
 // ========================== Part 5: Full Circle ===========================================
 // As a final task, transform the final set of data back into CSV format.
