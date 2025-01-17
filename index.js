@@ -154,6 +154,7 @@ console.log(arrOfDataObjs)
 // It is important to know how to work with data in this format, an array of objects, as it is one of the most commonly used data formats in JavaScript.
 // Using array methods, accomplish the following tasks, in order upon the result of Part 3:
 // Remove the last element from the sorted array.
+arrOfDataObjs.pop();
 // Insert the following object at index 1:
 // { id: "48", name: "Barry", occupation: "Runner", age: "25" }
 arrOfDataObjs.splice (1, 0, { id: "48", name: "Barry", occupation: "Runner", age: "25" });
@@ -184,3 +185,22 @@ console.log(avgAge);
 // ========================== Part 5: Full Circle ===========================================
 // As a final task, transform the final set of data back into CSV format.
 // There are a number of ways to do this; be creative!
+
+const csvRows = [];
+
+for (let i = 0; i < arrOfDataObjs.length; i++){
+    if (i === 0) {
+        const headerRow = Object.keys(arrOfDataObjs[i])
+        const headers = headerRow.join();
+        csvRows.push(headers);    
+    } else {
+        const rowArray = Object.values(arrOfDataObjs[i]);
+        const row = rowArray.join();
+        csvRows.push(row)
+    }
+}
+
+const csv = csvRows.join('\\n');
+
+ 
+console.log(csv);
