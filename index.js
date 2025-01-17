@@ -34,22 +34,34 @@ let str = 'Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49
 let cell = '';
 let row = [];
 
-for (const c of str){
-    if (c === ',') {
-        row.push(cell);
-        cell = '';
-        
-    } else if (c === '\n'){
-        // \n indicates a new row
-        row.push(cell);
-        // clear cell after adding it to row
-        cell = '';
-        //log the new row, then clear it
-        console.log(row);
-        row = [];
+for (let i = 0; i <= str.length; i++){
+    if (i === str.length) {
+            // indicates last row
+            row.push(cell);
+            // clear cell after adding it to row
+            cell = '';
+            //log the new row, then clear it
+            console.log(row);
+            row = [];
     } else {
-        cell += c
+
+        if (str[i] === ',') {
+            row.push(cell);
+            cell = '';
+            
+        } else if (str[i] === '\n'){
+            // \n indicates a new row
+            row.push(cell);
+            // clear cell after adding it to row
+            cell = '';
+            //log the new row, then clear it
+            console.log(row);
+            row = [];
+        } else {
+            cell += str[i]
+        }
     }
+    
 }
 // ============================= Part 2: Expanding Functionality ===============================
 // Now that you are familiar with your code, and perhaps have improved it, it is time to expand upon its functionality.
@@ -76,7 +88,7 @@ let dataStr = "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n6
 let columns = 0;
 
 // take in and process the first row of data to determine the number of columns
-for (let char of dataStr) {
+for (const char of dataStr) {
     if (char === ',') {
         columns++;
     } else if (char === '\n') {
@@ -92,16 +104,25 @@ console.log(columns)
 const dataArr = [];
 let cellData = '';
 let rowArr = [];
-for (let char of dataStr) {
-    if (char === ',') {
+for (let i = 0; i <= dataStr.length; i++) {
+    if ( i === dataStr.length) {
         rowArr.push(cellData);
         cellData = '';
-    } else if (char === '\n') {
         dataArr.push(rowArr);
         rowArr = [];
     } else {
-        cellData += char;
-    }  
+        if (dataStr[i] === ',') {
+            rowArr.push(cellData);
+            cellData = '';
+        } else if (dataStr[i] === '\n') {
+            rowArr.push(cellData);
+            cellData = '';
+            dataArr.push(rowArr);
+            rowArr = [];
+        } else {
+            cellData += dataStr[i];
+        } 
+    }
 }
 
 console.log(dataArr);
@@ -115,6 +136,20 @@ console.log(dataArr);
 // Store these objects in an array, in the order that they were originally listed.
 // Since the heading for each column will be stored in the object keys, you do not need to create an object for the heading row itself.
 
+const arrOfDataObjs = []
+
+//first for loop will iterate over the outer array, we can skip the first row because those are the headings
+for( let i = 1; i < dataArr.length; i++){
+    let dataObj = {};
+    //the inner for loop will iterate over the inner arrays
+    for( let j = 0; j < dataArr[0].length; j++) {
+        dataObj[dataArr[0][j].toLowerCase()] = dataArr[i][j];
+    }
+    arrOfDataObjs.push(dataObj)
+    dataObj = {};
+}
+
+console.log(arrOfDataObjs)
 // ============================ Part 4: Sorting and Manipulating Data =========================
 // It is important to know how to work with data in this format, an array of objects, as it is one of the most commonly used data formats in JavaScript.
 // Using array methods, accomplish the following tasks, in order upon the result of Part 3:
