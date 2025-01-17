@@ -76,8 +76,35 @@ let dataStr = "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n6
 let columns = 0;
 
 // take in and process the first row of data to determine the number of columns
+for (let char of dataStr) {
+    if (char === ',') {
+        columns++;
+    } else if (char === '\n') {
+        columns++;
+        break;
+    } else {
+        continue
+    }
+}
+ 
+console.log(columns)
 
+const dataArr = [];
+let cellData = '';
+let rowArr = [];
+for (let char of dataStr) {
+    if (char === ',') {
+        rowArr.push(cellData);
+        cellData = '';
+    } else if (char === '\n') {
+        dataArr.push(rowArr);
+        rowArr = [];
+    } else {
+        cellData += char;
+    }  
+}
 
+console.log(dataArr);
 
 // ============================ Part 3: Transforming Data ======================================
 // While the data is now much more workable than it was in its string format, there is still a large amount of obscurity in the data itself. When we access an arbitrary index of the results array, it is impossible to know what that data is referring to without additional cross-referencing.
